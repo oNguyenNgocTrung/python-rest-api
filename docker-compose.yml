@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:5.7
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ernie_call_api_db
+    volumes:
+      - ./dump:/docker-entrypoint-initdb.d
+  
+
+  api:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+    links:
+      - db
+    environment:
+      DB_NAME: ernie_call_api_db
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_HOST: db
+      REDIS_URL: redis://redis:6379
+
+  # redis:
+  #   image: redis:alpine
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
