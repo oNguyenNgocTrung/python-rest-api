@@ -1,6 +1,8 @@
 from rest_framework.response import Response
-from rest_framework import viewsets, status
+from rest_framework import viewsets, renderers
 
 class HealthCheckViewSet(viewsets.ViewSet):
+  renderer_classes = [renderers.JSONRenderer]
   def list(self, request):
-    return Response(data={}, status=status.HTTP_200_OK)
+    data = { 'status': 'OK' }
+    return Response(data)
