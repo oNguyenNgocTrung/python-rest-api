@@ -41,3 +41,19 @@ jobs:
             ${{ steps.login-ecr.outputs.registry }}/ernie-call/api-prod:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
+      ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN }}
+      ARGOCD_VERSION: ${{ secrets.ARGOCD_VERSION }}
+    steps:
+      - name: Download argocd cli
+        run: |
+          sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION:-v1.7.6}/argocd-linux-amd64
+          sudo chmod +x /usr/local/bin/argocd
+      - name: Sync prod env
+        run: |
+          argocd app set ernie-call-api-prod --helm-set image.tag=${{ github.sha }}
+          argocd app sync ernie-call-api-prod
