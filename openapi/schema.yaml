@@ -80,7 +80,7 @@ paths:
             type: string
           in: header
           name: Authorization
-  '/organizations/{organization_id}/clients/{client_id}/manages':
+  '/organizations/{organization_id}/clients/{client_id}/managers':
     parameters:
       - schema:
           type: string
@@ -108,7 +108,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/manager'
-  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}':
+  '/organizations/{organization_id}/clients/{client_id}/managers/{manager_id}':
     parameters:
       - schema:
           type: string
@@ -141,7 +141,7 @@ paths:
             type: string
           in: header
           name: Authorization
-  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}/staffs':
+  '/organizations/{organization_id}/clients/{client_id}/managers/{manager_id}/staffs':
     parameters:
       - schema:
           type: string
@@ -174,7 +174,7 @@ paths:
             type: string
           in: header
           name: Authorization
-  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}/staffs/{staff_id}':
+  '/organizations/{organization_id}/clients/{client_id}/managers/{manager_id}/staffs/{staff_id}':
     parameters:
       - schema:
           type: string
@@ -223,33 +223,6 @@ paths:
             type: string
           in: header
           name: Authorization
-  '/organizations/{organization_id}/login':
-    parameters:
-      - schema:
-          type: string
-        name: organization_id
-        in: path
-        required: true
-    post:
-      summary: ''
-      operationId: post-organizations-organization_id-login
-      responses:
-        '200':
-          description: OK
-          headers:
-            Authorization:
-              schema:
-                type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-                password:
-                  type: string
   '/organizations/{organization_id}/clients/login':
     parameters:
       - schema:
@@ -277,7 +250,7 @@ paths:
                   type: string
                 password:
                   type: string
-  '/organizations/{organization_id}/clients/{client_id}/manages/login':
+  '/organizations/{organization_id}/clients/{client_id}/managers/login':
     parameters:
       - schema:
           type: string
@@ -305,7 +278,7 @@ paths:
                   type: string
                 password:
                   type: string
-  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}/staffs/login':
+  '/organizations/{organization_id}/clients/{client_id}/managers/{manager_id}/staffs/login':
     parameters:
       - schema:
           type: string
