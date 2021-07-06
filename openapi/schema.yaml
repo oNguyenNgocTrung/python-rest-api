@@ -1,0 +1,291 @@
+openapi: 3.1.0
+info:
+  title: schema.yml
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /organizations:
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-organizations
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                logoUrl:
+                  type: string
+      description: 組織の作成
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+  '/organizations/{organization_id}/clients':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-organizations-organization_id-clients
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/client'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+  '/organizations/{organization_id}/clients/{client_id}':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-organizations-organization_id-clients-client_id
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/client'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+  '/organizations/{organization_id}/clients/{client_id}/manages':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-organizations-organization_id-clients-client_id-manages
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/manager'
+  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: manager_id
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-organizations-organization_id-clients-client_id-manages-manager_id
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/manager'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}/staffs':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: manager_id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-organizations-organization_id-clients-client_id-manages-manager_id-staffs
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/staff'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}/staffs/{staff_id}':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: manager_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: staff_id
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-organizations-organization_id-clients-client_id-manages-manager_id-staffs-staff_id
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/staff'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+    delete:
+      summary: ''
+      operationId: delete-organizations-organization_id-clients-client_id-manages-manager_id-staffs-staff_id
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+  '/organizations/{organization_id}/login':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-organizations-organization_id-login
+      responses:
+        '200':
+          description: OK
+          headers:
+            Authorization:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                password:
+                  type: string
+components:
+  schemas:
+    manager:
+      title: manager
+      type: object
+      properties:
+        userId:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        memo:
+          type: string
+        logoUrl:
+          type: string
+    client:
+      title: client
+      type: object
+      properties:
+        userId:
+          type: string
+        password:
+          type: string
+    staff:
+      title: staff
+      type: object
+      properties:
+        userId:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        memo:
+          type: string
+        logoUrl:
+          type: string
+  securitySchemes: {}
