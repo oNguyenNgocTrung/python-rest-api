@@ -250,6 +250,94 @@ paths:
                   type: string
                 password:
                   type: string
+  '/organizations/{organization_id}/clients/login':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-organizations-organization_id-clients-login
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - schema:
+            type: string
+          in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                password:
+                  type: string
+  '/organizations/{organization_id}/clients/{client_id}/manages/login':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-organizations-organization_id-clients-client_id-manages-login
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                password:
+                  type: string
+  '/organizations/{organization_id}/clients/{client_id}/manages/{manager_id}/staffs/login':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: manager_id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-organizations-organization_id-clients-client_id-manages-manager_id-staffs-login
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                password:
+                  type: string
 components:
   schemas:
     manager:
